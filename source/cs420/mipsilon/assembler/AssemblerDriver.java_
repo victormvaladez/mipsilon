@@ -1,0 +1,56 @@
+package cs420.mipsilon.assembler;
+
+import java.io.File;
+import cs420.mipsilon.Util;
+import java.util.Iterator;
+
+class AssemblerDriver{
+
+	public static void main(String [] args)
+	throws Exception
+	{
+	
+		PreProcessor pp = null;
+		TextProcessor tp = null;
+		try
+		{
+			File file = new File("E:\\victor.mips");
+			pp = new PreProcessor(file);
+			tp = new TextProcessor(pp);
+			
+		}
+		catch(AssemblerException ae)
+		{
+			System.err.println(ae.getMessage());
+			System.exit(1);
+		}		
+		catch(Exception e) {throw e; }
+		
+		Iterator symbols = pp.symbolIterator();
+		Iterator text = pp.textIterator();		
+	/*	
+		System.out.println("\n\nSymbols:");
+		while(symbols.hasNext())
+		{
+			String label = (String) symbols.next();
+			System.out.println("[0x" + Util.padZero(Integer.toHexString(pp.lookupSymbol(label)),8 ) + "] : " + label  );
+		}
+	/*
+		System.out.println(" ");
+		System.out.println("-----------------------------------------");
+		System.out.println("Text:");
+		for(int i = 0; text.hasNext(); i++)
+		{
+			Integer lineNum = (Integer) text.next();
+			System.out.println("[0x" + Util.padZero(Integer.toHexString(i*4),8 ) + "] : " + pp.getTextElement(lineNum) );
+		}
+		System.out.println(" ");
+		System.out.println("-----------------------------------------");
+		System.out.println("Data:");
+		while(data.hasNext())
+		{
+			Integer lineNum = (Integer) data.next();
+		}
+		*/
+	}
+}

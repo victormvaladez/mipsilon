@@ -1,0 +1,52 @@
+##############################
+# sample1.mips
+#
+# Author: Victor Valadez
+# Date:   March 6, 2004
+# 
+# This sample program demonstrates the use
+# of a procedure call.
+# 
+#############################
+
+        .text   
+
+main:   
+        la      $a0,  arr       # load the address of the array
+        addi    $a1,   $0, 5    # Set array size
+        jal SumArray            # Execute the function
+                        
+        sw      $v0,    result  # Save the result into memory
+        
+        j main                  # Jump back to main
+
+##############################
+#
+# SumArray
+# sums all numbers in a word array
+# input: 
+#        $a0 - the array to sum
+#        $a1 - the size of the array
+#output:
+#        $v0 - the sum
+SumArray:
+        add $t0, $0, $a0        # Copy the array pointer
+        add $t1, $0, $a1        # Copy the array size
+        addi $t1, $t1, -1       # Loop counter = array size - 1.
+        add $v0, $0, $0         # Initialize return value
+SumArrayLoop:   
+        slt $t2, $0, $t1        
+        beq $0,  $t2, SumArrayExit
+        lw  $t3, 0($t0)         # Load array element
+        
+        add $v0, $v0, $t3       # Add it to the running total
+        
+        addi $t0, $t0, 4        # Increment the pointer
+        addi $t1, $t1, -1       # Decrement the loop counter
+        j SumArrayLoop
+SumArrayExit:   
+        jr $ra                  # Return with sun in $v0
+        
+        .data 
+arr:         .word   1, 2, 3, 4, 5      # Array of words
+result:      .word   0x00000000         # Space for the result

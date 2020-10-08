@@ -1,0 +1,5 @@
+.build
+.idea
+manuscript/*.log
+manuscript/*.aux
+manuscript/*.dvi

@@ -1,0 +1,46 @@
+##############################
+# sample2.mips
+#
+# Author: Victor Valadez
+# Date:   March 6, 2004
+#
+# This sample program the use
+# of some supported arithmetic operations.
+# 
+#############################
+
+
+        .text   
+
+main:           
+        lw      $t0,    test1           # Load the test words
+        lw      $t1,    test2           #
+         
+        and     $t3,    $t0, $t1        # Test AND operation
+        or      $t4,    $t0, $t1        # Test OR operation
+
+        sw      $t3,    testResult1     # Save the test results
+        sw      $t4,    testResult2     # 
+        
+        lw      $t0     test3           # Load the test words
+        lw      $t1     test4           #
+        
+        add     $t3     $t1, $t0        # Test ADD operation
+        sub     $t4     $t1, $t0        # Test SUB operation
+        
+        sw      $t3,    testResult3     # Save the test results
+        sw      $t4,    testResult4     # 
+        
+        j main
+
+        
+        .data 
+             .space 8
+test1:       .word   0xcafebabe
+test2:       .word   0xbadfaced
+test3:       .word   0x00000005
+test4:       .word   0x00000008
+testResult1: .space 4
+testResult2: .space 4
+testResult3: .space 4
+testResult4: .space 4

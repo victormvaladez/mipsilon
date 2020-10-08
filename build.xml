@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+
+  <project name="cs420" default="all" basedir=".">
+  
+    <!--
+      This is where your student information goes.
+    -->
+  
+    <!--
+      Project-wide settings. All directories are relative to the
+      project directories.
+    -->
+    <property name="src.dir" value="source"/>
+    <property name="dist.dir" value="dist"/>    
+    <property name="junit.dir" value="junit3.8.1"/>
+    <property name="resources.dir" value="resources"/>
+    
+    <!--
+      Build directories.
+    -->
+    <property name="build.dir" value="build"/>
+    <property name="build.classes" value="${build.dir}/classes"/>
+    <property name="build.lib" value="${build.dir}/lib"/>
+    
+
+    <!--
+      The name of the assignment to compile (by default).
+    -->
+    <property name="a" value="mipsilon"/>
+    
+    <!--
+      Target to create the build directories prior to the
+      compile target
+    -->
+    <target name="prepare">
+      <mkdir dir="${build.dir}"/>
+      <mkdir dir="${build.classes}"/>
+      <mkdir dir="${build.lib}"/>
+    </target>
+    
+    <target name="clear" depends="prepare" description="Clears class and Jar files for specific package">
+        <delete dir="${build.dir}" />
+        <delete dir="${dist.dir}" />
+    </target>
+    
+    <target name="compile" depends="prepare" description="Compiles all source code.">
+      <javac srcdir="${src.dir}" destdir="${build.classes}" source="1.4" includes="**/*.java"  >
+      </javac>
+      <copy todir="${build.classes}">
+        <fileset dir="resources"/>
+      </copy>
+    </target>    
+    
+    <target name="jar" depends="compile" description="Generates the necessary jar for the project.">
+    	<jar
+        jarfile="${dist.dir}/${a}.jar"
+        basedir="${build.classes}"
+        includes="**/*.*"
+        manifest="${basedir}/manifest/manifest.mft"
+      />
+    </target>   
+    
+    <target name="all" depends="jar" description="Cleans, comiples, then builds the JAR file."/>
+    
+  </project>
